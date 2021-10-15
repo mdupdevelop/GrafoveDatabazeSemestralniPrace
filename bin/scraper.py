@@ -50,11 +50,15 @@ def retrieve_page_authors(soup):
         soup: soup of idnes article
     '''
 
-    print(soup.h1.text)
+    
     try:
-        author = soup.find(rel='author').span.text
-    except:
-        author = 'Unknown'
+        author = soup.findAll(rel='author')[1].span.text
+    except IndexError:
+        try:  
+            author = soup.find(rel='author').span.text
+        except:
+            author = 'MediaOrganisation'
+    print(author)
     return author
 
 def retrieve_references_to(soup):

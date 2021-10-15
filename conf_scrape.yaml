@@ -1,5 +1,5 @@
 # Configuration variables for scraper.py 
 # All values must be specified for the script to work 
-url: https://www.idnes.cz/zpravy/domaci/zeman-zdravi-ovcacek-brifink-mynar.A211014_140358_domaci_remy
-pages_to_scrape: 1
-dir_name: lecba_prezidenta_2_14102021
+url: https://www.idnes.cz/zpravy/domaci/vondracek-navsteva-prezidenta-milose-zemana-v-uvn.A211015_124103_domaci_kop
+pages_to_scrape: 1000
+dir_name: pozvalMeZeman
