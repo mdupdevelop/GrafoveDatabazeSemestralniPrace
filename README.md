@@ -17,17 +17,17 @@ Výsledkom je naloadovaná grafová databáze v neo4j, ktorá obsahujé jednotli
 Nainštalovanie potrebných packagov: pip install -r /path/to/requirements.txt
 
 Program funguje ako 2 nezávislé python skripty v zložke bin. 
-1) **scraper.py**
+1) **scraper.py**\
 
-Pred spustením potrebné nastaviť súbor **conf_scrape.yaml**
-url: url na článok
-pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu
-dir_name: názov zložky do ktorej sa články uložia v podobe json súborov
+Pred spustením potrebné nastaviť súbor **conf_scrape.yaml**\
+url: url na článok\
+pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu\
+dir_name: názov zložky do ktorej sa články uložia v podobe json súborov\
 
-2) **graphtransfer.py**
+2) **graphtransfer.py**\
 
-Pred spustením potrebné nastaviť súbor **conf_graph.yaml** a mať pripravený neo4j server
-server: bolt://localhost:7687
-username: neo4j
-password: password
-dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze
+Pred spustením potrebné nastaviť súbor **conf_graph.yaml** a mať pripravený neo4j server\
+server: bolt://localhost:7687\
+username: neo4j\
+password: password\
+dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze\
