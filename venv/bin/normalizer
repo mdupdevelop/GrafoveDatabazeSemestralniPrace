@@ -1,4 +1,4 @@
-#!/Users/mdup/Documents/Škola/Grafy/Semestralni_Prace/venv/bin/python3
+#!/Users/mdup/Documents/Škola/Grafy/GrafoveDatabazeSemestralniPrace/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

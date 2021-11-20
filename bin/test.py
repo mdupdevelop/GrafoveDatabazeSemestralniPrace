@@ -69,17 +69,17 @@ class Neo4jDB:
     # Relationships
     @staticmethod 
     def _create_article_author_relationship1(tx, page_url, author):
-        tx.run(f"MATCH (a:Article), (b:Author) WHERE a.page_url = '{page_url}' AND b.name = '{author}' AND NOT (a)-[:WRITTEN_BY]->(b) CREATE (a)-[r:WRITTEN_BY]->(b)")                      
+        tx.run(f"MATCH (a:Article), (b:Author) WHERE a.page_url = '{page_url}' AND b.name = '{author}' CREATE (a)-[r:WRITTEN_BY]->(b)")                      
         return None
 
     @staticmethod 
     def _create_article_topic_relationship(tx, page_url, topic):
-        tx.run(f"MATCH (a:Article), (b:Topic) WHERE a.page_url = '{page_url}' AND b.topic = '{topic}' AND NOT (a)-[:IS_ABOUT]->(b) CREATE (a)-[r:IS_ABOUT]->(b)")                      
+        tx.run(f"MATCH (a:Article), (b:Topic) WHERE a.page_url = '{page_url}' AND b.topic = '{topic}' CREATE (a)-[r:IS_ABOUT]->(b)")                      
         return None
 
     @staticmethod 
     def _create_article_article2_relationship(tx, page_name1, page_name2):
-        tx.run(f"MATCH (a:Article), (b:Article) WHERE a.page_title = '{page_name1}' AND b.page_title = '{page_name2}' AND NOT (a)-[:REFERENCES_TO]->(b) CREATE (a)-[r:REFERENCES_TO]->(b)")                      
+        tx.run(f"MATCH (a:Article), (b:Article) WHERE a.article = '{page_name1}' AND b.article = '{page_name2}' CREATE (a)-[r:REFERENCES_TO]->(b)")                      
         return None
 
 
@@ -92,37 +92,14 @@ if __name__ == "__main__":
             data = json.load(json_file)['pages']
             for i in range(len(data)):
                 page_title = data[i]['page_title']
-                page_url   = data[i]['page_url']
-                author     = data[i]['written_by']
-
-                db.create_page_node(data[i]['page_title'], data[i]['page_url'])
-                db.create_author_node(data[i]['written_by'])
-                print(page_title)
-                print('URL__________' + page_url +  '_____AUTHOR_______' + author)
-                db.create_article_author_relationship(page_url, author)
-
-                for j in range(len(data[i]['topics'])):
-                    topic = data[i]['topics'][j]
-                    db.create_topic_node(topic)
-                    db.create_article_topic_relationship(page_url, topic)
-
-
-
-    # Create relationships between pages second round of iteration
-    for file in os.listdir(f'./{conf_dir_name}/'):
-        with open(f'./{conf_dir_name}/{file}') as json_file:
-            data = json.load(json_file)['pages']
-            for i in range(len(data)):
-                page_title = data[i]['page_title']
                 for j in range(len(data[i]['references_to'])):
-                    db.create_article_article2_relationship(page_title, data[i]['references_to'][j]['page_name'])
+                    print(data[i]['references_to'][j]['page_name'])
+
 
     db.close() 
 
 
-
-
-"""         for file in os.listdir(f'./{conf_dir_name}/'):
+    """     for file in os.listdir(f'./{conf_dir_name}/'):
         with open(f'./{conf_dir_name}/{file}') as json_file:
             print(file)
             data = json.load(json_file)['pages']
@@ -136,6 +113,7 @@ if __name__ == "__main__":
                 print(page_title)
                 print('URL__________' + page_url +  '_____AUTHOR_______' + author)
                 db.create_article_author_relationship(page_url, author)
+
 
                 for j in range(len(data[i]['topics'])):
                     topic = data[i]['topics'][j]
