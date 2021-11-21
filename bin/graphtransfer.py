@@ -119,25 +119,3 @@ if __name__ == "__main__":
 
     db.close() 
 
-
-
-
-"""         for file in os.listdir(f'./{conf_dir_name}/'):
-        with open(f'./{conf_dir_name}/{file}') as json_file:
-            print(file)
-            data = json.load(json_file)['pages']
-            for i in range(len(data)):
-                page_title = data[i]['page_title']
-                page_url   = data[i]['page_url']
-                author     = data[i]['written_by']
-
-                db.create_page_node(data[i]['page_title'], data[i]['page_url'])
-                db.create_author_node(data[i]['written_by'])
-                print(page_title)
-                print('URL__________' + page_url +  '_____AUTHOR_______' + author)
-                db.create_article_author_relationship(page_url, author)
-
-                for j in range(len(data[i]['topics'])):
-                    topic = data[i]['topics'][j]
-                    db.create_topic_node(topic)
-                    db.create_article_topic_relationship(page_url, topic) """
