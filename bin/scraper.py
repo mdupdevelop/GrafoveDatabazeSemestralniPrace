@@ -4,6 +4,7 @@ import json
 import requests
 import shutil
 import yaml
+import time
 from bs4 import BeautifulSoup
 
 
@@ -28,7 +29,16 @@ def get_page_soup(link):
     Args:
         link: url , for context of this program, idnes article, for example: https://www.idnes.cz/zpravy/domaci/zeman-zdravi-ovcacek-brifink-mynar.A211014_140358_domaci_remy
     '''
-    page = requests.get(link)
+    
+    page = ''
+    while page == '':
+        try:    
+            page = requests.get(link)
+            break
+        except: 
+            print("Connection refused by the server... waiting  5 seconds")
+            time.sleep(5)
+
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
 
@@ -58,7 +68,6 @@ def retrieve_page_authors(soup):
             author = soup.find(rel='author').span.text
         except:
             author = 'MediaOrganisation'
-    print(author)
     return author
 
 def retrieve_references_to(soup):
@@ -68,7 +77,12 @@ def retrieve_references_to(soup):
     Args:
         soup: soup of idnes article
     '''
-    references_to = soup.find(id='related-list').find_all('a')
+    
+    try: 
+        references_to = soup.find(id='related-list').find_all('a')
+    except:
+        print(soup)
+        references_to = []
     references_to_list = []
     for page in references_to:
         if page.text == 'Premium':
@@ -138,7 +152,7 @@ def do_everything(page_url = conf_url):
     page_references = retrieve_references_to(soup)
     page_topics     = retrieve_topics(soup)    
     create_json_page(page_title, page_url, page_author, page_references, page_topics)
-
+    print(str(page_counter) + '_____' + page_title + '____' + 'succesfuly scraped.')
 
 if __name__ == '__main__': 
     do_everything()
