@@ -1,4 +1,4 @@
-dir_name: asd
-password: '3'
-server: '1'
-username: '1'
+dir_name: to_be_rewritten
+password: '123'
+server: bolt://localhost:7687
+username: neo4j

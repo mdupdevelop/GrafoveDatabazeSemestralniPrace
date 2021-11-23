@@ -7,7 +7,7 @@ import yaml
 import time
 from bs4 import BeautifulSoup
 
-with open(r'./conf_scrape.yaml') as file:
+with open(r'./conf/conf_scrape.yaml') as file:
     conf_yaml            = yaml.safe_load(file)
     conf_url             = conf_yaml['url']
     conf_pages_to_scrape = conf_yaml['pages_to_scrape']

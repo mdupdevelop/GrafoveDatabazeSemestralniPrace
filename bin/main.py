@@ -1,6 +1,9 @@
 import tkinter as tk
+
 import scraper
 import graphtransfer
+import yaml_editor
+
 
 if __name__ == '__main__':
     
@@ -54,7 +57,7 @@ if __name__ == '__main__':
     password_entry.insert(0, '123')
     password_entry.grid(row = 3, column = 1)
 
-    tk.Button(left_column, text = "Clear DB", command = graphtransfer.clear_db, width= 10).grid(row = 1, column = 2, rowspan = 3, sticky = tk.N + tk.S)
+    tk.Button(left_column, text = "Clear DB", command = lambda: [yaml_editor.edit_conf_graph(server_entry.get(), username_entry.get(), password_entry.get()), graphtransfer.clear_db()], width= 10).grid(row = 1, column = 2, rowspan = 3, sticky = tk.N + tk.S)
 
 
     # Right column buttons
@@ -69,8 +72,8 @@ if __name__ == '__main__':
     tk.Label(right_column, text = 'Pages to scrape:').grid(row = 3, column = 0)
     tk.Entry(right_column).grid(row = 3, column = 1)
 
-    tk.Button(right_column, text = "Scrape", command = scraper.main, width= 10).grid(row = 1, column = 2)
-    tk.Button(right_column, text = "Send to graph", command = graphtransfer.main, width= 10).grid(row = 2, column = 2)
-    tk.Button(right_column, text = "Both", command = lambda: [scraper.main(), graphtransfer.main()], width= 10).grid(row = 3, column = 2)
+    tk.Button(right_column, text = "Scrape", command = lambda: [yaml_editor.edit_conf_files(), scraper.main()], width= 10).grid(row = 1, column = 2)
+    tk.Button(right_column, text = "Send to graph", command = lambda: [yaml_editor.edit_conf_files(), graphtransfer.main()], width= 10).grid(row = 2, column = 2)
+    tk.Button(right_column, text = "Both", command = lambda: [yaml_editor.edit_conf_files(), scraper.main(), graphtransfer.main()], width= 10).grid(row = 3, column = 2)
 
     root.mainloop()

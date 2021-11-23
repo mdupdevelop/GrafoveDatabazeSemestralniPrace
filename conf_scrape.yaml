@@ -1,5 +1,0 @@
-# Configuration variables for scraper.py 
-# All values must be specified for the script to work 
-url: https://www.idnes.cz/zpravy/zahranicni/francie-vlajka-prezident-emmanuel-macron-barva-modra.A211115_085343_zahranicni_dtt
-pages_to_scrape: 100
-dir_name: macron_100

@@ -6,7 +6,7 @@ from neo4j import GraphDatabase
 import yaml
 
 
-with open(r'./conf_graph.yaml') as file:
+with open(r'./conf/conf_graph.yaml') as file:
     conf_yaml     = yaml.safe_load(file)
     conf_server   = conf_yaml['server']
     conf_username = conf_yaml['username']
@@ -130,10 +130,11 @@ def main():
     db.close() 
 
 def clear_db():
+    print(f'Deleting all records from db {conf_server}')
     db = Neo4jDB(f"{conf_server}", f"{conf_username}", f"{conf_password}")
     db.delete_entire_db()
     db.close() 
-
+    print(f'Records deleted {conf_server}')
 
 if __name__ == "__main__":
     main()
