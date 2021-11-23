@@ -1,8 +1,8 @@
 import tkinter as tk
 
-import scraper
-import graphtransfer
-import yaml_editor
+from lib import scraper
+from lib import graphtransfer
+from lib import yaml_editor
 
 
 if __name__ == '__main__':
