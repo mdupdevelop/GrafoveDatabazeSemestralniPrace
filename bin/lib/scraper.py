@@ -7,11 +7,7 @@ import yaml
 import time
 from bs4 import BeautifulSoup
 
-with open(r'./conf/conf_scrape.yaml') as file:
-    conf_yaml            = yaml.safe_load(file)
-    conf_url             = conf_yaml['url']
-    conf_pages_to_scrape = conf_yaml['pages_to_scrape']
-    conf_dir_name        = conf_yaml['dir_name']
+
 
 
 def get_page_soup(link):
@@ -23,13 +19,18 @@ def get_page_soup(link):
     '''
     
     page = ''
+    counter = 0
     while page == '':
-        try:    
-            page = requests.get(link)
+        if counter < 5:
+            try:    
+                page = requests.get(link)
+                break
+            except: 
+                counter = counter + 1 
+                print("Connection refused by the server... waiting  5 seconds, check if the link is valid")
+                time.sleep(5)
+        else:
             break
-        except: 
-            print("Connection refused by the server... waiting  5 seconds")
-            time.sleep(5)
 
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
@@ -91,7 +92,7 @@ def retrieve_references_to(soup):
 
 def retrieve_topics(soup):
     '''
-    Return article 'Témata' section
+    Return article 'Temata' section
     
     Args:
         soup: soup of idnes article
@@ -103,7 +104,7 @@ def retrieve_topics(soup):
     return topics_list
 
 
-def create_json_page(page_title, page_url, page_author, page_references, page_topics):
+def create_json_page(page_title, page_url, page_author, page_references, page_topics, conf_dir_name):
     ''''
     Convert article information into json file
 
@@ -111,8 +112,8 @@ def create_json_page(page_title, page_url, page_author, page_references, page_to
         page_title: title of the article
         page_url: url to the article
         page_author: author of the article
-        page_references: list of 'Související'
-        page_topics: list of 'Témata' 
+        page_references: list of 'souvisejici'
+        page_topics: list of 'Temata' 
     '''
     global page_counter
 
@@ -134,7 +135,7 @@ def create_json_page(page_title, page_url, page_author, page_references, page_to
     return None
 
 
-def do_everything(page_url = conf_url):
+def do_everything(page_url, conf_dir_name):
     ''''
     Calls other functions in this file. Retrieve all information, convert and save them into json.
     '''
@@ -143,11 +144,18 @@ def do_everything(page_url = conf_url):
     page_author     = retrieve_page_authors(soup)
     page_references = retrieve_references_to(soup)
     page_topics     = retrieve_topics(soup)    
-    create_json_page(page_title, page_url, page_author, page_references, page_topics)
+    create_json_page(page_title, page_url, page_author, page_references, page_topics, conf_dir_name)
     print(str(page_counter) + '_____' + page_title + '____' + 'succesfuly scraped.')
 
 
 def main():
+    with open('./conf/conf_scrape.yaml') as file:
+        conf_yaml            = yaml.safe_load(file)
+        conf_url             = conf_yaml['url']
+        conf_pages_to_scrape = conf_yaml['pages_to_scrape']
+        conf_dir_name        = conf_yaml['dir_name']
+        conf_pages_to_scrape = int(conf_pages_to_scrape)
+
     global page_counter
     page_counter = 0
 
@@ -159,17 +167,18 @@ def main():
         os.mkdir(f'./{conf_dir_name}')
 
     # Scrape first article
-    do_everything()
+    do_everything(conf_url, conf_dir_name)
 
     # Cycle of scraping articles in json files
-    for x in range(int(conf_pages_to_scrape)):
+    for x in range(conf_pages_to_scrape):
         with open(f'./{conf_dir_name}/page{x}.json') as json_file:
             data = json.load(json_file)['pages']
             for i in range(len(data)):
                 for j in range(len(data[i]['references_to'])):
                     references = data[i]['references_to'][j]
-                    do_everything(references['page_url'])
+                    do_everything(references['page_url'], conf_dir_name)
 
+    print('Scraping completed')
 if __name__ == '__main__': 
     main()
 
