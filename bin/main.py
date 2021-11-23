@@ -70,7 +70,7 @@ if __name__ == '__main__':
     tk.Entry(right_column).grid(row = 3, column = 1)
 
     tk.Button(right_column, text = "Scrape", command = scraper.main, width= 10).grid(row = 1, column = 2)
-    tk.Button(right_column, text = "Send to graph", command = scraper.main, width= 10).grid(row = 2, column = 2)
-    tk.Button(right_column, text = "Both", command = scraper.main, width= 10).grid(row = 3, column = 2)
+    tk.Button(right_column, text = "Send to graph", command = graphtransfer.main, width= 10).grid(row = 2, column = 2)
+    tk.Button(right_column, text = "Both", command = lambda: [scraper.main(), graphtransfer.main()], width= 10).grid(row = 3, column = 2)
 
     root.mainloop()
