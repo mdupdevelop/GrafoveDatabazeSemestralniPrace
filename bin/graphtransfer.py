@@ -83,7 +83,7 @@ class Neo4jDB:
         return None
 
 
-if __name__ == "__main__":
+def main():
     db = Neo4jDB(f"{conf_server}", f"{conf_username}", f"{conf_password}")
 
     for file in os.listdir(f'./{conf_dir_name}/'):
@@ -118,4 +118,7 @@ if __name__ == "__main__":
                     db.create_article_article2_relationship(page_title, data[i]['references_to'][j]['page_name'])
 
     db.close() 
+
+if __name__ == "__main__":
+    main()
 
