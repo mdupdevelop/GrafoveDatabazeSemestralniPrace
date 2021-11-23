@@ -162,7 +162,7 @@ def main():
     do_everything()
 
     # Cycle of scraping articles in json files
-    for x in range(conf_pages_to_scrape):
+    for x in range(int(conf_pages_to_scrape)):
         with open(f'./{conf_dir_name}/page{x}.json') as json_file:
             data = json.load(json_file)['pages']
             for i in range(len(data)):
