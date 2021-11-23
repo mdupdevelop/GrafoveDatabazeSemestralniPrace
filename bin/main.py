@@ -64,16 +64,19 @@ if __name__ == '__main__':
     tk.Label(bottom_row, text = 'Page settings').grid(row = 0, columnspan = 3, sticky = tk.W + tk.E)
 
     tk.Label(bottom_row, text = 'Folder name:', width= 15).grid(row = 1, column = 0)
-    tk.Entry(bottom_row).grid(row = 1, column = 1)
+    folder_entry = tk.Entry(bottom_row)
+    folder_entry.grid(row = 1, column = 1)
 
     tk.Label(bottom_row, text = 'Article URL:').grid(row = 2, column = 0)
-    tk.Entry(bottom_row).grid(row = 2, column = 1)
+    url_entry = tk.Entry(bottom_row)
+    url_entry.grid(row = 2, column = 1)
 
     tk.Label(bottom_row, text = 'Pages to scrape:').grid(row = 3, column = 0)
-    tk.Entry(bottom_row).grid(row = 3, column = 1)
+    scrapenumber_entry = tk.Entry(bottom_row)
+    scrapenumber_entry.grid(row = 3, column = 1)
 
-    tk.Button(bottom_row, text = "Scrape", command = lambda: [yaml_editor.edit_conf_files(), scraper.main()], width= 10).grid(row = 1, column = 2)
-    tk.Button(bottom_row, text = "Send to graph", command = lambda: [yaml_editor.edit_conf_files(), graphtransfer.main()], width= 10).grid(row = 2, column = 2)
-    tk.Button(bottom_row, text = "Both", command = lambda: [yaml_editor.edit_conf_files(), scraper.main(), graphtransfer.main()], width= 10).grid(row = 3, column = 2)
+    tk.Button(bottom_row, text = "Scrape", command = lambda: [yaml_editor.edit_conf_files(folder_entry.get(), url_entry.get(), scrapenumber_entry.get(), server_entry.get(), username_entry.get(), password_entry.get()), scraper.main()], width= 10).grid(row = 1, column = 2)
+    tk.Button(bottom_row, text = "Send to graph", command = lambda: [yaml_editor.edit_conf_files(folder_entry.get(), url_entry.get(), scrapenumber_entry.get(), server_entry.get(), username_entry.get(), password_entry.get()), graphtransfer.main()], width= 10).grid(row = 2, column = 2)
+    tk.Button(bottom_row, text = "Both", command = lambda: [yaml_editor.edit_conf_files(folder_entry.get(), url_entry.get(), scrapenumber_entry.get(), server_entry.get(), username_entry.get(), password_entry.get()), scraper.main(), graphtransfer.main()], width= 10).grid(row = 3, column = 2)
 
     root.mainloop()
