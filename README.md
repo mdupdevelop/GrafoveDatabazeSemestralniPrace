@@ -1,4 +1,3 @@
-<pre>
 # Seminární práce pro 4IZ553 Graph Databases and Graph Data Visualization
 
 ## Účel programu
@@ -30,7 +29,7 @@ Main.py používa obsahuje 3 moduly v zložke bin/lib.
 
 1) **yaml_editor.py**
 Modul koriguje úpravu yaml súborov v /conf. Na tieto súbory sa odkazujú ostatné skripty, pri scrapovaní alebo pracovaní s neo4j databázou.
-
+<pre>
 Jedná sa o\
     - conf_scrape.yaml
          url: url na článok\
@@ -41,11 +40,9 @@ Jedná sa o\
          username: neo4j\
          password: password\
          dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze
-    
+</pre>  
 2) **scraper.py**
 
 
 3) **graphtransfer.py**
 
-
-</pre>
