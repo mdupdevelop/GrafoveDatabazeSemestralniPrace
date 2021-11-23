@@ -6,14 +6,6 @@ from neo4j import GraphDatabase
 import yaml
 
 
-with open(r'./conf/conf_graph.yaml') as file:
-    conf_yaml     = yaml.safe_load(file)
-    conf_server   = conf_yaml['server']
-    conf_username = conf_yaml['username']
-    conf_password = conf_yaml['password']
-    conf_dir_name = conf_yaml['dir_name']
-
-
 class Neo4jDB:
 
     def __init__(self, uri, user, password):
@@ -94,6 +86,15 @@ class Neo4jDB:
 
 
 def main():
+    with open('./conf/conf_graph.yaml') as file:
+        conf_yaml     = yaml.safe_load(file)
+        conf_server   = conf_yaml['server']
+        conf_username = conf_yaml['username']
+        conf_password = conf_yaml['password']
+        conf_dir_name = conf_yaml['dir_name']
+
+
+
     db = Neo4jDB(f"{conf_server}", f"{conf_username}", f"{conf_password}")
 
     for file in os.listdir(f'./{conf_dir_name}/'):
@@ -130,6 +131,12 @@ def main():
     db.close() 
 
 def clear_db():
+    with open('./conf/conf_graph.yaml') as file:
+        conf_yaml     = yaml.safe_load(file)
+        conf_server   = conf_yaml['server']
+        conf_username = conf_yaml['username']
+        conf_password = conf_yaml['password']
+
     print(f'Deleting all records from db {conf_server}')
     db = Neo4jDB(f"{conf_server}", f"{conf_username}", f"{conf_password}")
     db.delete_entire_db()
