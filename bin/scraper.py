@@ -7,20 +7,12 @@ import yaml
 import time
 from bs4 import BeautifulSoup
 
-
-page_counter = 0
 with open(r'./conf_scrape.yaml') as file:
     conf_yaml            = yaml.safe_load(file)
     conf_url             = conf_yaml['url']
     conf_pages_to_scrape = conf_yaml['pages_to_scrape']
     conf_dir_name        = conf_yaml['dir_name']
 
-# Prepares dir for json files to be saved at, if folder already exists, it is remade
-if (os.path.isdir(conf_dir_name)) : 
-    shutil.rmtree(conf_dir_name)
-    os.mkdir(f'./{conf_dir_name}')
-else: 
-    os.mkdir(f'./{conf_dir_name}')
 
 def get_page_soup(link):
     ''''
@@ -154,8 +146,22 @@ def do_everything(page_url = conf_url):
     create_json_page(page_title, page_url, page_author, page_references, page_topics)
     print(str(page_counter) + '_____' + page_title + '____' + 'succesfuly scraped.')
 
-if __name__ == '__main__': 
+
+def main():
+    global page_counter
+    page_counter = 0
+
+    # Prepares dir for json files to be saved at, if folder already exists, it is remade
+    if (os.path.isdir(conf_dir_name)) : 
+        shutil.rmtree(conf_dir_name)
+        os.mkdir(f'./{conf_dir_name}')
+    else: 
+        os.mkdir(f'./{conf_dir_name}')
+
+    # Scrape first article
     do_everything()
+
+    # Cycle of scraping articles in json files
     for x in range(conf_pages_to_scrape):
         with open(f'./{conf_dir_name}/page{x}.json') as json_file:
             data = json.load(json_file)['pages']
@@ -163,6 +169,9 @@ if __name__ == '__main__':
                 for j in range(len(data[i]['references_to'])):
                     references = data[i]['references_to'][j]
                     do_everything(references['page_url'])
+
+if __name__ == '__main__': 
+    main()
 
 
 
