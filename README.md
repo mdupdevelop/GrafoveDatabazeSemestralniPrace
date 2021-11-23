@@ -20,22 +20,28 @@ Python3, najlepšie 3.9+ vyvýjané na python 3.9.8.
 Nainštalované potrebné package: pip install -r /path/to/requirements.txt
 
 Program sa spustí spustením main.py: python3 bin/main.py
-![image](![image](https://user-images.githubusercontent.com/61296627/142956519-2039b77a-2bee-4c59-af31-ee06c46f0e50.png)
+![image](https://user-images.githubusercontent.com/61296627/142956519-2039b77a-2bee-4c59-af31-ee06c46f0e50.png)
 
 
 ## Fungovanie programu, popis kódu
-Program obsahuje 3 skripty v zložke bin. 
-1) **scraper.py**
 
-Pred spustením potrebné nastaviť súbor **conf_scrape.yaml**\
-url: url na článok\
-pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu\
-dir_name: názov zložky do ktorej sa články uložia v podobe json súborov
+Main.py používa obsahuje 3 moduly v zložke bin/lib. 
 
-2) **graphtransfer.py**
+1) **yaml_editor.py**
+Modul koriguje úpravu yaml súborov v /conf. Na tieto súbory sa odkazujú ostatné skripty, pri scrapovaní alebo pracovaní s neo4j databázou.
+<pre>
+    - conf_scrape.yaml
+         url: url na článok
+         pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu
+         dir_name: názov zložky do ktorej sa články uložia v podobe json súborov
+    - conf_graph.yaml
+         server: bolt://localhost:7687
+         username: neo4j
+         password: password
+         dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze
+</pre>  
+2) **scraper.py**
 
-Pred spustením potrebné nastaviť súbor **conf_graph.yaml** a mať pripravený neo4j server\
-server: bolt://localhost:7687\
-username: neo4j\
-password: password\
-dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze
+
+3) **graphtransfer.py**
+
