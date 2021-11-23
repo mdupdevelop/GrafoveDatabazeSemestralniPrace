@@ -47,6 +47,11 @@ class Neo4jDB:
         with self.driver.session() as session:
             session.write_transaction(self._create_article_article2_relationship, page_name1, page_name2)
     
+    # Delete
+    def delete_entire_db(self):
+        with self.driver.session() as session:
+            session.write_transaction(self._delete_entire_db)
+    
     #Static methods
     
     #Nodes
@@ -80,6 +85,11 @@ class Neo4jDB:
     @staticmethod 
     def _create_article_article2_relationship(tx, page_name1, page_name2):
         tx.run(f"MATCH (a:Article), (b:Article) WHERE a.page_title = '{page_name1}' AND b.page_title = '{page_name2}' AND NOT (a)-[:REFERENCES_TO]->(b) CREATE (a)-[r:REFERENCES_TO]->(b)")                      
+        return None
+
+    @staticmethod 
+    def _delete_entire_db(tx):
+        tx.run(f"MATCH (n) DETACH DELETE n")                      
         return None
 
 
@@ -118,6 +128,12 @@ def main():
                     db.create_article_article2_relationship(page_title, data[i]['references_to'][j]['page_name'])
 
     db.close() 
+
+def clear_db():
+    db = Neo4jDB(f"{conf_server}", f"{conf_username}", f"{conf_password}")
+    db.delete_entire_db()
+    db.close() 
+
 
 if __name__ == "__main__":
     main()

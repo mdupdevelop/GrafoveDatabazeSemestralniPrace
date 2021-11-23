@@ -1,5 +1,6 @@
 import tkinter as tk
 import scraper
+import graphtransfer
 
 if __name__ == '__main__':
     
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     password_entry.insert(0, '123')
     password_entry.grid(row = 3, column = 1)
 
-    tk.Button(left_column, text = "Clear DB", command = scraper.main, width= 10).grid(row = 1, column = 2, rowspan = 3, sticky = tk.N + tk.S)
+    tk.Button(left_column, text = "Clear DB", command = graphtransfer.clear_db, width= 10).grid(row = 1, column = 2, rowspan = 3, sticky = tk.N + tk.S)
 
 
     # Right column buttons
