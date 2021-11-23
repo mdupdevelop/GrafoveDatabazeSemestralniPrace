@@ -31,13 +31,13 @@ Main.py používa obsahuje 3 moduly v zložke bin/lib.
 Modul koriguje úpravu yaml súborov v /conf. Na tieto súbory sa odkazujú ostatné skripty, pri scrapovaní alebo pracovaní s neo4j databázou.
 <pre>
     - conf_scrape.yaml
-         url: url na článok\
-         pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu\
+         url: url na článok
+         pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu
          dir_name: názov zložky do ktorej sa články uložia v podobe json súborov
     - conf_graph.yaml
-         server: bolt://localhost:7687\
-         username: neo4j\
-         password: password\
+         server: bolt://localhost:7687
+         username: neo4j
+         password: password
          dir_name: názov zložky s json súbormi pre vloženie do grafovej databáze
 </pre>  
 2) **scraper.py**
