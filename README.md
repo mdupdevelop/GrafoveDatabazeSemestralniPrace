@@ -1,3 +1,4 @@
+<pre>
 # Seminární práce pro 4IZ553 Graph Databases and Graph Data Visualization
 
 ## Účel programu
@@ -20,7 +21,7 @@ Python3, najlepšie 3.9+ vyvýjané na python 3.9.8.
 Nainštalované potrebné package: pip install -r /path/to/requirements.txt
 
 Program sa spustí spustením main.py: python3 bin/main.py
-(![image](https://user-images.githubusercontent.com/61296627/142956519-2039b77a-2bee-4c59-af31-ee06c46f0e50.png)
+![image](https://user-images.githubusercontent.com/61296627/142956519-2039b77a-2bee-4c59-af31-ee06c46f0e50.png)
 
 
 ## Fungovanie programu, popis kódu
@@ -47,3 +48,4 @@ Jedná sa o\
 3) **graphtransfer.py**
 
 
+</pre>
