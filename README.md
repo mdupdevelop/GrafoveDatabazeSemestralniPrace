@@ -30,7 +30,7 @@ Main.py používa obsahuje 3 moduly v zložke bin/lib.
 1) **yaml_editor.py**
 Modul koriguje úpravu yaml súborov v /conf. Na tieto súbory sa odkazujú ostatné skripty, pri scrapovaní alebo pracovaní s neo4j databázou.
 
-Jedná sa o 
+Jedná sa o\
     * conf_scrape.yaml
     url: url na článok\
     pages_to_scrape: počet strániek na zoscrapovanie (do grafu sa dostanú spolu\
